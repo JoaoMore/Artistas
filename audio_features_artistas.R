@@ -34,3 +34,7 @@ for (i in 1:nrow(artistas)){
   songlist[[i]] <- temp_data
   
 }
+
+final.time <- Sys.time()
+
+final.time - start.time
