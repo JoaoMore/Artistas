@@ -34,6 +34,3 @@ for (i in 1:nrow(artistas)){
   songlist[[i]] <- temp_data
   
 }
-
-
-a
