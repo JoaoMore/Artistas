@@ -38,3 +38,5 @@ for (i in 1:nrow(artistas)){
 final.time <- Sys.time()
 
 final.time - start.time
+
+musicas <- bind_rows(songlist)
