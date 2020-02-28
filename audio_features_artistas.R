@@ -14,6 +14,11 @@ artistas <-  artistas %>%
 
 # As credenciais do spotify nao foram definidas aqui por questões de segurança
 
+Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxxxx')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxxxx')
+
+# - -----------------------------------------------------------------------
+
 songlist <- list()
 nao_encontrados <- NULL
 
@@ -23,7 +28,8 @@ for (i in 1:nrow(artistas)){
   
   print(paste(artistas$nome[i], i, sep = ' : '))
   
-  temp_data <- tryCatch(get_artist_audio_features(as.character(artistas$nome[i])),
+  temp_data <- tryCatch(get_artist_audio_features(as.character(artistas$nome[i]),
+                                                  include_groups = c('album','single')),
                         error = function(e) e)
   
   if(inherits(temp_data, 'error')) {
@@ -31,6 +37,7 @@ for (i in 1:nrow(artistas)){
     next
   }
   
+  temp_data$nacionalidade <- artistas$nacionalidade[i]
   songlist[[i]] <- temp_data
   
 }
