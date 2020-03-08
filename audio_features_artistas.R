@@ -14,8 +14,8 @@ artistas <-  artistas %>%
 
 # As credenciais do spotify nao foram definidas aqui por questões de segurança
 
-Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxxxx')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxxxx')
+Sys.setenv(SPOTIFY_CLIENT_ID = '1a64690c9f63499e8bd8ebc72dc2127f')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '2f16a897b79949a2983d188c948c9e9e')
 
 # - -----------------------------------------------------------------------
 
@@ -47,3 +47,5 @@ final.time <- Sys.time()
 final.time - start.time
 
 musicas <- bind_rows(songlist)
+
+save(musicas, file = 'data/musicas.RData')
