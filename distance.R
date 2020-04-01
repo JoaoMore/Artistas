@@ -20,12 +20,12 @@ compare <- function(x,y){
 artist.distance <- function(name, difference = FALSE, reverse = FALSE) {
   testex %>% 
     filter(artist_1 == name & diff == difference) %>% 
-    arrange((-1)^(TRUE)*distance) %>% 
+    arrange((-1)^(reverse)*distance) %>% 
     .$artist_2 %>% 
     .[1]
 }
 
-testex <- artistas_summarized %>% 
+artistas_summarized %>% 
   select_if(is.numeric) %>% 
   dist() %>% 
   as.matrix(labels = TRUE) %>% 
@@ -35,3 +35,14 @@ testex <- artistas_summarized %>%
   left_join(., nac, by = c('artist_2' = 'artist_name')) %>% 
   rename(nac_1 = nacionalidade.x, nac_2 = nacionalidade.y) %>% 
   mutate(diff = compare(nac_1,nac_2))
+
+
+albuns_summarized %>% 
+  select_if(is.numeric) %>% 
+  dist() %>% 
+  as.matrix(labels = TRUE) %>% 
+  reshape2::melt(varnames = c('artist_album_1','artist_album_2'),
+                 value.name = 'distance') %>% 
+  filter(distance != 0) %>% 
+  extract(artist_album_1, c('artist_1','album_1'), "^([^-]+) - (.+)") %>% 
+  extract(artist_album_2, c('artist_2','album_2'), "^([^-]+) - (.+)")
